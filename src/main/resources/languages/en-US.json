@@ -406,6 +406,12 @@
       "failure": "Failed, player not found.",
       "invalid_player_id": "Unable to parse player ID.",
       "command_usage": "Usage: unban <playerId>"
+    },
+    "recycle": {
+      "description": "Recycling weapons or relic and give the upgrade material",
+      "command_usage": "Useage：recycle <wp|art>",
+      "weapons": "Done!",
+      "artifacts": "Done!"
     }
   },
   "gacha": {

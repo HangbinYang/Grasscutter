@@ -406,6 +406,12 @@
       "failure": "取消玩家的封禁失败，因为无法获取到其账户。",
       "invalid_player_id": "无法解析玩家 ID。",
       "command_usage": "用法：unban <玩家ID>"
+    },
+    "recycle": {
+      "description": "回收武器或圣遗物",
+      "command_usage": "用法：recycle <wp|art>\nwp:武器，art：圣遗物",
+      "weapons": "已回收武器",
+      "artifacts": "已回收圣遗物"
     }
   },
   "gacha": {
