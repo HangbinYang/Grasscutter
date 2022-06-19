@@ -1,14 +1,17 @@
 package emu.grasscutter.command.commands;
 
-import emu.grasscutter.Grasscutter;
 import emu.grasscutter.command.Command;
 import emu.grasscutter.command.CommandHandler;
 import emu.grasscutter.game.inventory.GameItem;
+import emu.grasscutter.data.excels.ItemData;
 import emu.grasscutter.game.inventory.Inventory;
 import emu.grasscutter.game.inventory.ItemType;
 import emu.grasscutter.game.player.Player;
+import emu.grasscutter.data.GameData;
+import emu.grasscutter.game.props.ActionReason;
 
 import java.util.List;
+import java.util.LinkedList;
 
 import static emu.grasscutter.utils.Language.translate;
 
@@ -33,20 +36,17 @@ public final class RecycleCommand implements CommandHandler {
             	toDelete = playerInventory.getItems().values().stream()
                     .filter(item -> item.getItemType() == ItemType.ITEM_WEAPON)
                     .filter(item -> !item.isLocked() && !item.isEquipped())
+                    .filter(item -> item.getItemData().getRankLevel() < 4)
                     .toList();
+                Integer giveCount = 0;
                 for (GameItem item: toDelete) {
-                    ItemData itemData = GameData.getItemDataMap().get(104012);
-                    GameItem newItem = new GameItem(itemData);
-                    item.setLevel(1);
-                    if (item.getPromoteLevel() > 5) {
-                        item.setCount(50);
-                    } else if (item.getPromoteLevel() >= 4) {
-                        item.setCount(30);
-                    } else {
-                        item.setCount(10);
-                    }
-                    toGive.add(item);
+                    giveCount += item.getItemData().getRankLevel();
                 }
+                ItemData itemData = GameData.getItemDataMap().get(104013);
+                GameItem newItem = new GameItem(itemData);
+                newItem.setLevel(1);
+                newItem.setCount(giveCount);
+                toGive.add(newItem);
                 targetPlayer.getInventory().addItems(toGive, ActionReason.SubfieldDrop);
                 CommandHandler.sendMessage(sender, translate(sender, "commands.recycle.weapons", targetPlayer.getNickname()));
             }
@@ -56,19 +56,20 @@ public final class RecycleCommand implements CommandHandler {
                     .filter(item -> item.getLevel() == 1 && item.getExp() == 0)
                     .filter(item -> !item.isLocked() && !item.isEquipped())
                     .toList();
+                Integer giveCount = 0;
                 for (GameItem item: toDelete) {
-                    ItemData itemData = GameData.getItemDataMap().get(105003);
-                    GameItem newItem = new GameItem(itemData);
-                    item.setLevel(1);
-                    if (item.getPromoteLevel() > 5) {
-                        item.setCount(50);
-                    } else if (item.getPromoteLevel() >= 4) {
-                        item.setCount(30);
+                    if (item.getItemData().getRankLevel() == 5) {
+                        giveCount += 2;
                     } else {
-                        item.setCount(10);
-                    }
-                    toGive.add(item);
+                        giveCount += 1;
+                    } 
+                    giveCount += item.getItemData().getRankLevel();
                 }
+                ItemData itemData = GameData.getItemDataMap().get(105003);
+                GameItem newItem = new GameItem(itemData);
+                newItem.setLevel(1);
+                newItem.setCount(giveCount);
+                toGive.add(newItem);
                 targetPlayer.getInventory().addItems(toGive, ActionReason.SubfieldDrop);
                 CommandHandler.sendMessage(sender, translate(sender, "commands.recycle.artifacts", targetPlayer.getNickname()));
             }
