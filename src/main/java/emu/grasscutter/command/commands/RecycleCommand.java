@@ -39,16 +39,22 @@ public final class RecycleCommand implements CommandHandler {
                     .filter(item -> item.getItemData().getRankLevel() < 4)
                     .toList();
                 Integer giveCount = 0;
+                Integer maxCount = 9999;
                 for (GameItem item: toDelete) {
                     giveCount += item.getItemData().getRankLevel();
                 }
-                ItemData itemData = GameData.getItemDataMap().get(104013);
-                GameItem newItem = new GameItem(itemData);
-                newItem.setLevel(1);
-                newItem.setCount(giveCount);
-                toGive.add(newItem);
-                targetPlayer.getInventory().addItems(toGive, ActionReason.SubfieldDrop);
-                CommandHandler.sendMessage(sender, translate(sender, "commands.recycle.weapons", targetPlayer.getNickname()));
+                GameItem essence = targetPlayer.getInventory().getItemByGuid(104013);
+                Integer existsCount = essence.getCount();
+                giveCount = existsCount + giveCount > maxCount ? maxCount - existsCount : giveCount;
+                if (giveCount > 0) {
+                    ItemData itemData = GameData.getItemDataMap().get(104013);
+                    GameItem newItem = new GameItem(itemData);
+                    newItem.setLevel(1);
+                    newItem.setCount(giveCount);
+                    toGive.add(newItem);
+                    targetPlayer.getInventory().addItems(toGive, ActionReason.SubfieldDrop);
+                    CommandHandler.sendMessage(sender, translate(sender, "commands.recycle.weapons", targetPlayer.getNickname()));
+                }
             }
             case "art" -> {
             	toDelete = playerInventory.getItems().values().stream()
@@ -57,6 +63,7 @@ public final class RecycleCommand implements CommandHandler {
                     .filter(item -> !item.isLocked() && !item.isEquipped())
                     .toList();
                 Integer giveCount = 0;
+                Integer maxCount = 9999;
                 for (GameItem item: toDelete) {
                     if (item.getItemData().getRankLevel() == 5) {
                         giveCount += 2;
@@ -65,13 +72,18 @@ public final class RecycleCommand implements CommandHandler {
                     } 
                     giveCount += item.getItemData().getRankLevel();
                 }
-                ItemData itemData = GameData.getItemDataMap().get(105003);
-                GameItem newItem = new GameItem(itemData);
-                newItem.setLevel(1);
-                newItem.setCount(giveCount);
-                toGive.add(newItem);
-                targetPlayer.getInventory().addItems(toGive, ActionReason.SubfieldDrop);
-                CommandHandler.sendMessage(sender, translate(sender, "commands.recycle.artifacts", targetPlayer.getNickname()));
+                GameItem essence = targetPlayer.getInventory().getItemByGuid(105003);
+                Integer existsCount = essence.getCount();
+                giveCount = existsCount + giveCount > maxCount ? maxCount - existsCount : giveCount;
+                if (giveCount > 0) {
+                    ItemData itemData = GameData.getItemDataMap().get(105003);
+                    GameItem newItem = new GameItem(itemData);
+                    newItem.setLevel(1);
+                    newItem.setCount(giveCount);
+                    toGive.add(newItem);
+                    targetPlayer.getInventory().addItems(toGive, ActionReason.SubfieldDrop);
+                    CommandHandler.sendMessage(sender, translate(sender, "commands.recycle.artifacts", targetPlayer.getNickname()));
+                }
             }
         }
         
