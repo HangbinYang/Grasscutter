@@ -412,6 +412,20 @@
       "command_usage": "Useage：recycle <wp|art>",
       "weapons": "Done!",
       "artifacts": "Done!"
+    },
+    "gift": {
+      "description": "Give some item to other player",
+      "arglength": "参数长度错误",
+      "errornumber": "数字转换错误",
+      "inventoryerror": "背包栏参数错误",
+      "useage": "gift <wp|art> [row] [index] @someone, \nwp: weapons, art: holyrelics\nrow: a row of inventory, index: index number of that line",
+      "needTarget": "Missing uid of the other player, USEAGE: gift <wp|art> [row] [index] @someone",
+      "none": "No items in the inventory",
+      "outbounds": "outbounds!",
+      "locked": "The item is locked",
+      "equipped": "The item is equipped",
+      "success": "The item is sended successfully",
+      "received": "You have received an item from other player"
     }
   },
   "gacha": {

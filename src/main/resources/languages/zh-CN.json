@@ -412,6 +412,20 @@
       "command_usage": "用法：recycle <wp|art>\nwp:武器，art：圣遗物",
       "weapons": "已回收武器",
       "artifacts": "已回收圣遗物"
+    },
+    "gift": {
+      "description": "将背包某个物品发送给其他人",
+      "arglength": "参数长度错误",
+      "errornumber": "数字转换错误",
+      "inventoryerror": "背包栏参数错误",
+      "useage": "gift <wp|art> [row] [index] @someone, \nwp: 武器, art: 圣遗物\nrow: 在背包对应物品栏的哪一行, index: 该物品在那一行的第几个",
+      "needTarget": "必须使用@uid，例如：gift wp 1 1 @10001,代表将武器背包中第一行的第一个给10001这个玩家",
+      "none": "背包没有物品",
+      "outbounds": "这一行的这一个不存在",
+      "locked": "这个物品是上锁的，不能发送",
+      "equipped": "这个物品已经被你装备在身上，不能发送",
+      "success": "赠送成功",
+      "received": "你收到一个来自其他玩家的物品，请打开背包查看"
     }
   },
   "gacha": {
